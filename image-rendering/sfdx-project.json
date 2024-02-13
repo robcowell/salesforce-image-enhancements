@@ -1,0 +1,24 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": false,
+      "package": "ImageRenderingPackage",
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "dependencies": [
+        {
+          "package": "ImageHandlingUploadPackage@0.1.0.LATEST"
+        }
+      ],
+      "versionDescription": "Package for rendering images"
+    }
+  ],
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "59.0",
+  "packageAliases": {
+    "ImageRenderingPackage": "0HoRz00000002oDKAQ",
+    "ImageHandlingUploadPackage": "0HoRz00000002mbKAA"
+  }
+}
