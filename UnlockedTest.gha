@@ -1,0 +1,41 @@
+name: Salesforce CI for Unlocked Packages
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install Salesforce CLI
+      run: npm install sfdx-cli --global
+
+    - name: Authenticate with Salesforce Dev Hub
+      run: |
+              sfdx auth:jwt:grant --clientid ${{ secrets.SF_CONSUMER_KEY }} --jwtkeyfile server.key \
+                --username ${{ secrets.SF_USERNAME }} --setdefaultdevhubusername --instanceurl https://login.salesforce.com
+
+    - name: Create Scratch Org
+      run: sfdx force:org:create -f config/project-scratch-def.json -s -d 7
+
+    - name: Deploy Base Package - Image Handling Upload
+      run: sfdx force:source:deploy --sourcepath ./image-handling-upload/force-app --targetusername ${{ secrets.SF_USERNAME }}
+
+    - name: Run Tests for Image Handling Upload Package
+      run: sfdx force:apex:test:run --targetusername ${{ secrets.SF_USERNAME }} --wait 10
+
+    - name: Deploy Dependent Package - Image Rendering
+      run: sfdx force:source:deploy --sourcepath ./image-rendering/force-app --targetusername ${{ secrets.SF_USERNAME }}
+
+    - name: Run Tests for Image Rendering Package
+      run: sfdx force:apex:test:run --targetusername ${{ secrets.SF_USERNAME }} --wait 10
+
+    - name: Integration Tests Across Packages
+      run: |
+        # Add commands to run integration tests involving both packages
+        echo "Run integration tests here"
+
+    - name: Delete Scratch Org
+      if: always()
+      run: sfdx force:org:delete -p
