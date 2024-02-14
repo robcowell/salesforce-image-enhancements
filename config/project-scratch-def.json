@@ -1,13 +1,32 @@
 {
   "orgName": "robcowell company",
   "edition": "Developer",
-  "features": ["EnableSetPasswordInApi"],
-  "settings": {
+  "features": ["FieldService:2","Communities","Sites","MarketingUser","ServiceCloud","SalesUser","ServiceUser","ContactsToMultipleAccounts"],
+  "settings": 
+  {
+    "fieldServiceSettings": { 
+      "fieldServiceOrgPref": true ,
+      "doesShareSaWithAr":true,
+      "serviceAppointmentsDueDateOffsetOrgValue":7,
+      "enableWorkOrders":true
+    },
+    "accountSettings": {
+      "enableRelateContactToMultipleAccounts": true
+    },
     "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true
+        "enableS1DesktopEnabled": true
     },
     "mobileSettings": {
-      "enableS1EncryptedStoragePref2": false
+        "enableS1EncryptedStoragePref2": false
+    },
+    "pathAssistantSettings": {
+        "pathAssistantEnabled": true
+    },
+    "chatterSettings": {
+      "enableChatter":true
+    },
+    "apexSettings": {
+        "enableCompileOnDeploy": false
     }
   }
 }
